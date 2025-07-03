@@ -1,3 +1,48 @@
+let storedUsername = "";
+let storedPassword = "";
+
+// Auth elements
+const authDiv = document.getElementById("auth");
+const authMessage = document.getElementById("authMessage");
+const notesEl = document.getElementById("notes");
+
+const newUsername = document.getElementById("newUsername");
+const newPassword = document.getElementById("newPassword");
+const signUpBtn = document.getElementById("signUpBtn");
+
+const loginUsername = document.getElementById("loginUsername");
+const loginPassword = document.getElementById("loginPassword");
+const loginBtn = document.getElementById("loginBtn");
+
+// Sign Up
+signUpBtn.addEventListener("click", () => {
+  if (newUsername.value && newPassword.value) {
+    storedUsername = newUsername.value;
+    storedPassword = newPassword.value;
+    authMessage.style.color = "green";
+    authMessage.textContent = "Account created! You can now log in.";
+    newUsername.value = "";
+    newPassword.value = "";
+  } else {
+    authMessage.style.color = "red";
+    authMessage.textContent = "Please enter a username and password.";
+  }
+});
+
+// Login
+loginBtn.addEventListener("click", () => {
+  if (
+    loginUsername.value === storedUsername &&
+    loginPassword.value === storedPassword
+  ) {
+    authDiv.classList.add("hidden");
+    notesEl.classList.remove("hidden"); // Show the notes after login
+  } else {
+    authMessage.style.color = "red";
+    authMessage.textContent = "Invalid login credentials.";
+  }
+});
+
 const quizData = [
   {
     question: "Which formula represents Newton’s Second Law?",
