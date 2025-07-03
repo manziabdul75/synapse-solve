@@ -1,10 +1,24 @@
-<div id="login">
-  <h2>🔐 Student Login</h2>
-  <input type="text" id="username" placeholder="Enter username" />
-  <input type="password" id="password" placeholder="Enter password" />
+<div id="auth">
+  <h2>🔐 Sign Up / Login</h2>
+
+  <input type="text" id="newUsername" placeholder="Create username" />
+  <input type="password" id="newPassword" placeholder="Create password" />
+  <button id="signUpBtn">Sign Up</button>
+
+  <hr />
+
+  <input type="text" id="loginUsername" placeholder="Username" />
+  <input type="password" id="loginPassword" placeholder="Password" />
   <button id="loginBtn">Login</button>
-  <p id="loginError" style="color: red;"></p>
+
+  <p id="authMessage" style="color: red;"></p>
 </div>
+
+<!-- Make sure the quiz/notes section is hidden by default -->
+<div id="notes" class="hidden">
+  <!-- Study notes and Start Quiz button go here -->
+</div>
+
 
 <!DOCTYPE html>
 <html lang="en">
