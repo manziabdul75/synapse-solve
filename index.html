@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>S5 PCB Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+    .quiz-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    #choices button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+    }
+    .hidden {
+      display: none;
+    }
+    #notes {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>S5 PCB Quiz</h1>
+
+    <div id="notes">
+      <h2>📘 Study Notes</h2>
+      <h3>Physics: Newton’s Second Law</h3>
+      <p>Force = mass × acceleration. This law shows the relationship between an object’s mass, the force applied, and how it accelerates.</p>
+
+      <h3>Chemistry: Acids and Bases</h3>
+      <p>Acids have a pH less than 7 and taste sour. Bases have a pH greater than 7 and feel slippery. Neutralization occurs when an acid reacts with a base.</p>
+
+      <h3>Biology: Photosynthesis</h3>
+      <p>Plants make their own food using sunlight, carbon dioxide, and water. The process produces oxygen and glucose and happens in the chloroplasts.</p>
+
+      <button id="startBtn">Start Quiz</button>
+    </div>
+
+    <div id="question" class="hidden">Loading...</div>
+    <div id="choices"></div>
+    <div id="score" class="hidden"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Which formula represents Newton’s Second Law?",
+        choices: ["F = ma", "E = mc²", "P = IV", "W = mg"],
+        answer: "F = ma"
+      },
+      {
+        question: "What is the pH of a neutral solution?",
+        choices: ["0", "7", "14", "10"],
+        answer: "7"
+      },
+      {
+        question: "Where does photosynthesis occur in plant cells?",
+        choices: ["Nucleus", "Mitochondria", "Chloroplast", "Cytoplasm"],
+        answer: "Chloroplast"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const startBtn = document.getElementById("startBtn");
+    const notesEl = document.getElementById("notes");
+    const questionEl = document.getElementById("question");
+    const choicesEl = document.getElementById("choices");
+    const scoreEl = document.getElementById("score");
+
+    startBtn.addEventListener("click", () => {
+      notesEl.classList.add("hidden");
+      loadQuestion();
+    });
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      questionEl.textContent = q.question;
+      questionEl.classList.remove("hidden");
+      choicesEl.innerHTML = "";
+
+      q.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.onclick = () => {
+          if (choice === q.answer) score++;
+          currentQuestion++;
+          if (currentQuestion < quizData.length) {
+            loadQuestion();
+          } else {
+            showScore();
+          }
+        };
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    function showScore() {
+      questionEl.classList.add("hidden");
+      choicesEl.classList.add("hidden");
+      scoreEl.classList.remove("hidden");
+      scoreEl.textContent = `You scored ${score} out of ${quizData.length}`;
+    }
+  </script>
+</body>
+</html>
 
